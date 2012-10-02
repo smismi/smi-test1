@@ -1,0 +1,22 @@
+
+.chart_container {
+    height: 200px;
+    border: 1px solid #ff3d35;
+    position: relative;
+}
+.stp {
+    width: 100px;
+    height: 100%;
+    border: 1px solid #ffdd00;
+    position: absolute;
+    background: #ffffff
+}
+
+.hidden {
+    background: #f00
+}
+
+.hidden2 {
+    background: #00f
+}
+
