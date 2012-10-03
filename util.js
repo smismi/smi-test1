@@ -41,7 +41,7 @@ removeClass = function (el, clss) {
         var classq = '';
         for (i=0; i< classes.length; i++) {
             if (i != ine) {
-                classq += ((i==0) ? '' : ' ') + classes[i];
+                classq += ((i==0) ? '' : ' ') + classes[i];   //todo нормальные имена
             }
         }
         el.className = classq;

@@ -10,15 +10,45 @@
     <script type="text/javascript">
         function dynamicChart() {
             (function () {
+                new dChart(
+                        "chart_1",
+                        {
+                              a: 444
+                            , z: 0
+                            , h: 200
+                            , n: 200
+                            , r: 200
+                        },
+                        function(){
+                            alert(1);
+                        }
+                );
 
-                var sssdfg  = document.getElementById("stp");
+                new dChart(
+                        "chart_2",
+                        {
+                              a: 24
+                            , z: 333
+                            , h: 200
+                            , n: 200
+                            , r: 200
+                        },
+                        function(){
+                            alert(1);
+                        }
+                );
 
 
-                addEvent(sssdfg, "click", function() { alert('hi') });
-                addEvent(sssdfg, "mouseover", function() { sssdfg.style.borderColor = "#ef9900"; addClass(sssdfg, "hidden");});
-                addEvent(sssdfg, "mouseout", function() { sssdfg.style.borderColor = "#ef9900";  addClass(sssdfg, "hidden2") });
-                addEvent(sssdfg, "mousedown", function() { removeClass(sssdfg, "hidden")});
-                addEvent(sssdfg, "mouseup", function() {  removeClass(sssdfg, "hidden2")});
+
+//
+//                var sssdfg  = document.getElementById("stp");
+//
+//
+//                addEvent(sssdfg, "click", function() { alert('hi') });
+//                addEvent(sssdfg, "mouseover", function() { sssdfg.style.borderColor = "#ef9900"; addClass(sssdfg, "hidden");});
+//                addEvent(sssdfg, "mouseout", function() { sssdfg.style.borderColor = "#ef9900";  addClass(sssdfg, "hidden2") });
+//                addEvent(sssdfg, "mousedown", function() { removeClass(sssdfg, "hidden")});
+//                addEvent(sssdfg, "mouseup", function() {  removeClass(sssdfg, "hidden2")});
 
             })();
         }
@@ -45,9 +75,20 @@
         ewfwef
     </div>
     <div id="chart_1" class="chart_container">
-        <div id="stp" class="stp">
+        <img src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0">
+        <!--<div id="stp" class="stp">-->
 
-        </div>
+            <!--<div class="handler handler_right"></div>-->
+            <!--<div class="handler handler_left"></div>-->
+        <!--</div>-->
+    </div>
+    <div id="chart_2" class="chart_container">
+        <img src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0">
+        <!--<div id="stp" class="stp">-->
+
+            <!--<div class="handler handler_right"></div>-->
+            <!--<div class="handler handler_left"></div>-->
+        <!--</div>-->
     </div>
 
 
@@ -63,6 +104,8 @@
     }
 
 </script>
+
+<aside id="log" class="log_fixed">log:</aside>
 </body>
 </html>
 
