@@ -48,81 +48,9 @@ dChart.prototype = {
         that.slider.style.width = $px(that.state.z - that.state.a);
 
 
-        that.bindScroll();
-    },
-
-
-    bindScroll: function(){
-        var that = this;
-//        var dragObject = that.slider;
-//        var start = false;
-//        var startX = 0;
-//        var stopX = 0;
-//        var left =  that.state.a;
-//        var right =  that.state.z;
-//
-//        dragObject.onclick = function(e){
-//
-//            that._log('dragObject.click');
-//        };
-//        dragObject.onmousedown = function(e){
-//            e = fixEvent(e);
-//
-//            start = true;
-//            startX = e.pageX;
-//
-//            that._log(that.state.a + '__' + left + '___' + that.state.z);
-//        };
-//
-//        dragObject.onmousemove = function(e){
-//            e = fixEvent(e);
-//            if (!start) return;
-//
-//
-//
-//            newX = e.pageX;
-//            delta = startX - newX;
-//            newLeft = left - delta;
-//            newRight = right - delta;
-//
-//            that.state = {
-//                a: newLeft,
-//                z: newRight
-//            }
-//
-//            that.setPos();
-//
-//
-//
-//
-//
-//
-//
-//
-//
-////            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
-//
-//        };
-//        dragObject.onmouseup = function(e){
-//            e = fixEvent(e);
-//
-//            stopX = e.pageX;
-//            if (start) {that._log(stopX + '---'); start = false}
-////            var newLeft = getCoords(dragObject).left++;
-////            that._log(e.pageX);
-////            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
-//
-//            start = false;
-//            startX = 0;
-//            stopX = 0;
-//            left =  that.state.a;
-//        };
-//
-////        //todo prevent selection
-
-
         that.bindHandlers();
     },
+
     bindHandlers: function(){
         var that = this;
 
@@ -131,6 +59,9 @@ dChart.prototype = {
         var handler_left = that.handler_left;
         var handler_right = that.handler_right;
         var start = false;
+        var move = false;
+        var move_z = false;
+        var move_a = false;
 
         var startX = 0;
         var stopX = 0;
@@ -149,13 +80,19 @@ dChart.prototype = {
 
             if (e.target == handler_left) {
                 start = true;
+                move_a = true;
+
             }
 
             if (e.target == handler_right) {
                 start = true;
+                move_z = true;
+
             }
             if (e.target == dragObject) {
                 start = true;
+                move = true;
+
             }
 
             startX = e.pageX;
@@ -169,13 +106,16 @@ dChart.prototype = {
 
             newX = e.pageX;
             delta = startX - newX;
-//            newLeft = left - delta;
-//            newRight = right - delta;
+//            newLeft = left -  (move_a || move) ? delta : 0;
+//            newRight = right - (move_z || move) ? delta : 0;
 
-//            that.state = {
-//                a: newLeft,
-//                z: newRight
-//            };
+            newLeft = left - ((move_a || move) ? delta : 0);
+            newRight = right - ((move_z || move) ? delta : 0);
+
+            that.state = {
+                a: newLeft,
+                z: newRight
+            };
             that._log(that.state.a + '__' + delta + '___' + that.state.z);
             that.setPos();
 
@@ -187,8 +127,14 @@ dChart.prototype = {
             e = fixEvent(e);
             if (!start) return;
             start = false;
+            startX = 0;
+            stopX = 0;
+            left =  that.state.a;
+            right =  that.state.z;
             that.setPos();
-
+            move = false;
+            move_z = false;
+            move_a = false;
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
