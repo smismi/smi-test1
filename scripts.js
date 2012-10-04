@@ -144,10 +144,11 @@ dChart.prototype = {
             newX = e.pageX;
             delta = startX - newX;
             newLeft = left - delta;
+            newRight = right;
 
             that.state = {
                 a: newLeft,
-                z: that.state.z
+                z: newRight
             }
             that._log(that.state.a + '__' + left + '___' + that.state.z);
             e.stopPropagation()
@@ -166,7 +167,7 @@ dChart.prototype = {
             start = false;
             startX = 0;
             stopX = 0;
-            left =  that.state.z;
+            left =  that.state.a;
         };
 
         handler_right.onclick = function(e){
