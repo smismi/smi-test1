@@ -2,6 +2,8 @@ dChart = function(id, options, callback) {
     var that = this;
         that.obj = $(id);
 
+    makeUnselectable(that.obj);
+
     that.state = {
         a: 0,
         z: 0
@@ -23,6 +25,10 @@ dChart.prototype = {
 
 
         that.slider = document.createElement("div");
+
+
+
+
         that.obj.appendChild(that.slider);
         addClass(that.slider, "stp");
 
@@ -48,27 +54,114 @@ dChart.prototype = {
 
     bindScroll: function(){
         var that = this;
+//        var dragObject = that.slider;
+//        var start = false;
+//        var startX = 0;
+//        var stopX = 0;
+//        var left =  that.state.a;
+//        var right =  that.state.z;
+//
+//        dragObject.onclick = function(e){
+//
+//            that._log('dragObject.click');
+//        };
+//        dragObject.onmousedown = function(e){
+//            e = fixEvent(e);
+//
+//            start = true;
+//            startX = e.pageX;
+//
+//            that._log(that.state.a + '__' + left + '___' + that.state.z);
+//        };
+//
+//        dragObject.onmousemove = function(e){
+//            e = fixEvent(e);
+//            if (!start) return;
+//
+//
+//
+//            newX = e.pageX;
+//            delta = startX - newX;
+//            newLeft = left - delta;
+//            newRight = right - delta;
+//
+//            that.state = {
+//                a: newLeft,
+//                z: newRight
+//            }
+//
+//            that.setPos();
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
+//
+//        };
+//        dragObject.onmouseup = function(e){
+//            e = fixEvent(e);
+//
+//            stopX = e.pageX;
+//            if (start) {that._log(stopX + '---'); start = false}
+////            var newLeft = getCoords(dragObject).left++;
+////            that._log(e.pageX);
+////            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
+//
+//            start = false;
+//            startX = 0;
+//            stopX = 0;
+//            left =  that.state.a;
+//        };
+//
+////        //todo prevent selection
+
+
+        that.bindHandlers();
+    },
+    bindHandlers: function(){
+        var that = this;
+
+
         var dragObject = that.slider;
+        var handler_left = that.handler_left;
+        var handler_right = that.handler_right;
         var start = false;
+
         var startX = 0;
         var stopX = 0;
         var left =  that.state.a;
         var right =  that.state.z;
 
-        dragObject.onclick = function(e){
 
-            that._log('dragObject.click');
+
+
+        document.onclick = function(e){
+
+//            e.stopPropagation()
         };
-        dragObject.onmousedown = function(e){
+        document.onmousedown = function(e){
             e = fixEvent(e);
 
-            start = true;
+            if (e.target == handler_left) {
+                start = true;
+            }
+
+            if (e.target == handler_right) {
+                start = true;
+            }
+            if (e.target == dragObject) {
+                start = true;
+            }
+
             startX = e.pageX;
 
-            that._log(that.state.a + '__' + left + '___' + that.state.z);
         };
-
-        dragObject.onmousemove = function(e){
+        document.onmousemove = function(e){
             e = fixEvent(e);
             if (!start) return;
 
@@ -76,137 +169,28 @@ dChart.prototype = {
 
             newX = e.pageX;
             delta = startX - newX;
-            newLeft = left - delta;
-            newRight = right - delta;
+//            newLeft = left - delta;
+//            newRight = right - delta;
 
-            that.state = {
-                a: newLeft,
-                z: newRight
-            }
-
+//            that.state = {
+//                a: newLeft,
+//                z: newRight
+//            };
+            that._log(that.state.a + '__' + delta + '___' + that.state.z);
             that.setPos();
-
-
-
-
-
-
-
-
 
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
-        dragObject.onmouseup = function(e){
+
+        document.onmouseup = function(e){
             e = fixEvent(e);
-
-            stopX = e.pageX;
-            if (start) {that._log(stopX + '---'); start = false}
-//            var newLeft = getCoords(dragObject).left++;
-//            that._log(e.pageX);
-//            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
-
+            if (!start) return;
             start = false;
-            startX = 0;
-            stopX = 0;
-            left =  that.state.a;
-        };
-
-//        //todo prevent selection
-
-
-        that.bindHandlers();
-    },
-    bindHandlers: function(){
-        var that = this;
-        var handler_right = that.handler_right;
-        var handler_left = that.handler_left;
-        var start_l = false;
-        var start_r = false;
-        var startX = 0;
-        var stopX = 0;
-        var left =  that.state.a;
-        var right =  that.state.z;
-
-        handler_left.onclick = function(e){
-            that._log('handler_left.click');
-//            e.stopPropagation()
-        };
-        handler_left.onmousedown = function(e){
-            e = fixEvent(e);
-            start_l = true;
-            startX = e.pageX;
-        };
-
-        handler_left.onmousemove = function(e){
-            e = fixEvent(e);
-            if (!start_l) return;
-
-            newX = e.pageX;
-            delta = startX - newX;
-            newLeft = left - delta;
-
-            that.state.a =  newLeft;
-            that.state.z =  right;
-            that._log(that.state.a + '__' + left + '___' + that.state.z);
-//            e.stopPropagation()
-//            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
-
             that.setPos();
 
-        };
-        handler_left.onmouseup = function(e){
-            e = fixEvent(e);
-            stopX = e.pageX;
-            if (start_l) {that._log(stopX + '---'); start_l = false}
-//            var newLeft = getCoords(dragObject).left++;
-//            that._log(e.pageX);
-//            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
-
-            start_l = false;
-            startX = 0;
-            stopX = 0;
-            left =  that.state.a;
-        };
-        handler_right.onclick = function(e){
-            that._log('handler_right.click');
-//            e.stopPropagation()
-        };
-        handler_right.onmousedown = function(e){
-            e = fixEvent(e);
-            start_r = true;
-            startX = e.pageX;
-        };
-
-        handler_right.onmousemove = function(e){
-            e = fixEvent(e);
-            if (!start_r) return;
-
-            newX = e.pageX;
-            delta = startX - newX;
-            newRight = right - delta;
-
-            that.state.a =  left;
-            that.state.z =  newRight;
-            that._log(that.state.a + '__' + left + '___' + that.state.z);
-//            e.stopPropagation()
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
-            that.setPos();
-
-        };
-        handler_right.onmouseup = function(e){
-            e = fixEvent(e);
-            stopX = e.pageX;
-            if (start_r) {that._log(stopX + '---'); start_r = false}
-//            var newLeft = getCoords(dragObject).left++;
-//            that._log(e.pageX);
-//            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
-
-            start_r = false;
-            startX = 0;
-            stopX = 0;
-            right =  that.state.z;
         };
 
         //todo prevent selection
