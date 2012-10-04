@@ -5,24 +5,6 @@ function $px(x) {
     return x + 'px';
 }
 
-var addEvent, removeEvent;
-
-if (document.addEventListener) {
-    addEvent = function(el, type, handler) {
-        el.addEventListener(type, handler, false)
-    }
-    removeEvent = function(el, type, handler) {
-        el.removeEventListener(type, handler, false)
-    }
-} else {
-    addEvent = function(el, type, handler) {
-        el.attachEvent("on" + type, handler)
-    }
-    removeEvent = function(el, type, handler) {
-        el.detachEvent("on" + type, handler)
-    }
-}
-
 var addClass, removeClass
 
 addClass = function (el, clss) {
@@ -46,8 +28,6 @@ removeClass = function (el, clss) {
         }
         el.className = classq;
     }
-
-    console.log(el.className);
 };
 getClasses = function (el) {
    var classes = el.className.split(" ");
@@ -79,25 +59,6 @@ fixEvent = function(e) {
 }
 
 
-function getCoords(elem) {
-    var box = elem.getBoundingClientRect();
-
-    var body = document.body;
-    var docElem = document.documentElement;
-
-    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
-    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
-
-    var clientTop = docElem.clientTop || body.clientTop || 0;
-    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
-
-    var top  = box.top +  scrollTop - clientTop;
-    var left = box.left + scrollLeft - clientLeft;
-
-    return { top: Math.round(top), left: Math.round(left) };
-}
-
-
 if (!Array.prototype.indexOf)
 {
     Array.prototype.indexOf = function(elt /*, from*/)
@@ -121,14 +82,3 @@ if (!Array.prototype.indexOf)
     };
 }
 
-
-function makeUnselectable(node) {
-    if (node.nodeType == 1) {
-        node.setAttribute("unselectable", "on");
-    }
-    var child = node.firstChild;
-    while (child) {
-        makeUnselectable(child);
-        child = child.nextSibling;
-    }
-}

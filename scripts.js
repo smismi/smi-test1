@@ -2,8 +2,6 @@ dChart = function(id, options, callback) {
     var that = this;
         that.obj = $(id);
 
-    makeUnselectable(that.obj);
-
     that.state = {
         a: 0,
         z: 0
@@ -71,10 +69,7 @@ dChart.prototype = {
 
 
 
-        document.onclick = function(e){
 
-//            e.stopPropagation()
-        };
         document.onmousedown = function(e){
             e = fixEvent(e);
 
@@ -118,7 +113,6 @@ dChart.prototype = {
             };
             that._log(that.state.a + '__' + delta + '___' + that.state.z);
             that.setPos();
-
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
@@ -136,9 +130,21 @@ dChart.prototype = {
             move_z = false;
             move_a = false;
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
-
         };
-
+        document.onclick = function(e){
+            e = fixEvent(e);
+            if (!start) return;
+            start = false;
+            startX = 0;
+            stopX = 0;
+            left =  that.state.a;
+            right =  that.state.z;
+            that.setPos();
+            move = false;
+            move_z = false;
+            move_a = false;
+//            e.stopPropagation()
+        };
         //todo prevent selection
 
     },
