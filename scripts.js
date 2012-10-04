@@ -112,7 +112,7 @@ dChart.prototype = {
             left =  that.state.a;
         };
 
-        //todo prevent selection
+//        //todo prevent selection
 
 
         that.bindHandlers();
@@ -121,7 +121,8 @@ dChart.prototype = {
         var that = this;
         var handler_right = that.handler_right;
         var handler_left = that.handler_left;
-        var start = false;
+        var start_l = false;
+        var start_r = false;
         var startX = 0;
         var stopX = 0;
         var left =  that.state.a;
@@ -129,89 +130,85 @@ dChart.prototype = {
 
         handler_left.onclick = function(e){
             that._log('handler_left.click');
-            e.stopPropagation()
+//            e.stopPropagation()
         };
         handler_left.onmousedown = function(e){
             e = fixEvent(e);
-            start = true;
+            start_l = true;
             startX = e.pageX;
         };
 
         handler_left.onmousemove = function(e){
             e = fixEvent(e);
-            if (!start) return;
+            if (!start_l) return;
 
             newX = e.pageX;
             delta = startX - newX;
             newLeft = left - delta;
-            newRight = right;
 
-            that.state = {
-                a: newLeft,
-                z: newRight
-            }
+            that.state.a =  newLeft;
+            that.state.z =  right;
             that._log(that.state.a + '__' + left + '___' + that.state.z);
-            e.stopPropagation()
+//            e.stopPropagation()
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
+
+            that.setPos();
 
         };
         handler_left.onmouseup = function(e){
             e = fixEvent(e);
-
             stopX = e.pageX;
-            if (start) {that._log(stopX + '---'); start = false}
+            if (start_l) {that._log(stopX + '---'); start_l = false}
 //            var newLeft = getCoords(dragObject).left++;
 //            that._log(e.pageX);
 //            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
 
-            start = false;
+            start_l = false;
             startX = 0;
             stopX = 0;
             left =  that.state.a;
         };
-
         handler_right.onclick = function(e){
             that._log('handler_right.click');
-            e.stopPropagation()
+//            e.stopPropagation()
         };
         handler_right.onmousedown = function(e){
             e = fixEvent(e);
-            start = true;
+            start_r = true;
             startX = e.pageX;
         };
 
         handler_right.onmousemove = function(e){
             e = fixEvent(e);
-            if (!start) return;
+            if (!start_r) return;
 
             newX = e.pageX;
             delta = startX - newX;
             newRight = right - delta;
 
-            that.state = {
-                a: that.state.a,
-                z: newRight
-            }
-            that._log(that.state.a + '__' + right + '___' + that.state.z);
-            e.stopPropagation()
+            that.state.a =  left;
+            that.state.z =  newRight;
+            that._log(that.state.a + '__' + left + '___' + that.state.z);
+//            e.stopPropagation()
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
+
+            that.setPos();
 
         };
         handler_right.onmouseup = function(e){
             e = fixEvent(e);
-
             stopX = e.pageX;
-            if (start) {that._log(stopX + '---'); start = false}
+            if (start_r) {that._log(stopX + '---'); start_r = false}
 //            var newLeft = getCoords(dragObject).left++;
 //            that._log(e.pageX);
 //            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
 
-            start = false;
+            start_r = false;
             startX = 0;
             stopX = 0;
             right =  that.state.z;
         };
-        that.setPos();
+
         //todo prevent selection
 
     },
@@ -226,6 +223,7 @@ dChart.prototype = {
         var that = this;
             that.slider.style.left = that.state.a + 'px';
             that.slider.style.width = that.state.z - that.state.a + 'px';
+//            that.slider.style.width = that.state.z - that.state.a + 'px';
     },
 
 
