@@ -37,23 +37,28 @@ dChart.prototype = {
 
         that.prepareData();
 
-        that.slider.innerHTML =  that.state.a + ' ' + that.state.z;
+//        that.slider.innerHTML =  that.state.a + ' ' + that.state.z;
         that.slider.style.left = $px(that.state.a);
         that.slider.style.width = $px(that.state.z - that.state.a);
 
 
-        that.bindHandler();
+        that.bindScroll();
     },
 
 
-    bindHandler: function(){
+    bindScroll: function(){
         var that = this;
         var dragObject = that.slider;
         var start = false;
         var startX = 0;
         var stopX = 0;
         var left =  that.state.a;
+        var right =  that.state.z;
 
+        dragObject.onclick = function(e){
+
+            that._log('dragObject.click');
+        };
         dragObject.onmousedown = function(e){
             e = fixEvent(e);
 
@@ -72,13 +77,14 @@ dChart.prototype = {
             newX = e.pageX;
             delta = startX - newX;
             newLeft = left - delta;
-
+            newRight = right - delta;
 
             that.state = {
                 a: newLeft,
-                z: that.state.z
+                z: newRight
             }
-            that.setPos(dragObject);
+
+            that.setPos();
 
 
 
@@ -88,7 +94,7 @@ dChart.prototype = {
 
 
 
-            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
+//            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
         dragObject.onmouseup = function(e){
@@ -107,6 +113,106 @@ dChart.prototype = {
         };
 
         //todo prevent selection
+
+
+        that.bindHandlers();
+    },
+    bindHandlers: function(){
+        var that = this;
+        var handler_right = that.handler_right;
+        var handler_left = that.handler_left;
+        var start = false;
+        var startX = 0;
+        var stopX = 0;
+        var left =  that.state.a;
+        var right =  that.state.z;
+
+        handler_left.onclick = function(e){
+            that._log('handler_left.click');
+            e.stopPropagation()
+        };
+        handler_left.onmousedown = function(e){
+            e = fixEvent(e);
+            start = true;
+            startX = e.pageX;
+        };
+
+        handler_left.onmousemove = function(e){
+            e = fixEvent(e);
+            if (!start) return;
+
+            newX = e.pageX;
+            delta = startX - newX;
+            newLeft = left - delta;
+
+            that.state = {
+                a: newLeft,
+                z: that.state.z
+            }
+            that._log(that.state.a + '__' + left + '___' + that.state.z);
+            e.stopPropagation()
+//            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
+
+        };
+        handler_left.onmouseup = function(e){
+            e = fixEvent(e);
+
+            stopX = e.pageX;
+            if (start) {that._log(stopX + '---'); start = false}
+//            var newLeft = getCoords(dragObject).left++;
+//            that._log(e.pageX);
+//            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
+
+            start = false;
+            startX = 0;
+            stopX = 0;
+            left =  that.state.z;
+        };
+
+        handler_right.onclick = function(e){
+            that._log('handler_right.click');
+            e.stopPropagation()
+        };
+        handler_right.onmousedown = function(e){
+            e = fixEvent(e);
+            start = true;
+            startX = e.pageX;
+        };
+
+        handler_right.onmousemove = function(e){
+            e = fixEvent(e);
+            if (!start) return;
+
+            newX = e.pageX;
+            delta = startX - newX;
+            newRight = right - delta;
+
+            that.state = {
+                a: that.state.a,
+                z: newRight
+            }
+            that._log(that.state.a + '__' + right + '___' + that.state.z);
+            e.stopPropagation()
+//            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
+
+        };
+        handler_right.onmouseup = function(e){
+            e = fixEvent(e);
+
+            stopX = e.pageX;
+            if (start) {that._log(stopX + '---'); start = false}
+//            var newLeft = getCoords(dragObject).left++;
+//            that._log(e.pageX);
+//            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
+
+            start = false;
+            startX = 0;
+            stopX = 0;
+            right =  that.state.z;
+        };
+        that.setPos();
+        //todo prevent selection
+
     },
     getPos: function(obj){
         var that = this;
@@ -117,10 +223,8 @@ dChart.prototype = {
 
     setPos: function(){
         var that = this;
-        var dragObject = that.slider;
-            dragObject.style.left = that.state.a + 'px';
-
-        that._log(that.state.a + ' ' + newLeft);
+            that.slider.style.left = that.state.a + 'px';
+            that.slider.style.width = that.state.z - that.state.a + 'px';
     },
 
 
