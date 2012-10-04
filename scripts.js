@@ -1,20 +1,16 @@
 dChart = function(id, options, callback) {
-    this.obj = $(id);
-    this.options = {
-        a: 0
-        , z: 0
-        , h: 0
-        , n: 0
-        , r: 0
-    };
+    var that = this;
+        that.obj = $(id);
 
+    that.state = {
+        a: 0,
+        z: 0
+    }
     // User defined options
-    for (i in options) this.options[i] = options[i];
+    for (i in options) that.state[i] = options[i];
 
-    // Set starting position
-    this.a = this.options.a;
-    this.z = this.options.z;
-    this.initSlider();
+
+    that.initSlider();
 
 
 };
@@ -22,7 +18,10 @@ dChart = function(id, options, callback) {
 
 dChart.prototype = {
     initSlider: function() {
-        that = this;
+        var that = this;
+        // Set starting position
+
+
         that.slider = document.createElement("div");
         that.obj.appendChild(that.slider);
         addClass(that.slider, "stp");
@@ -38,8 +37,9 @@ dChart.prototype = {
 
         that.prepareData();
 
-        that.slider.style.left = $px(that.a);
-        that.slider.style.width = $px(that.z - that.a);
+        that.slider.innerHTML =  that.state.a + ' ' + that.state.z;
+        that.slider.style.left = $px(that.state.a);
+        that.slider.style.width = $px(that.state.z - that.state.a);
 
 
         that.bindHandler();
@@ -47,51 +47,48 @@ dChart.prototype = {
 
 
     bindHandler: function(){
-        that = this;
-        var wrapper = that.obj;
+        var that = this;
         var dragObject = that.slider;
-//        dragObject.onmousedown = function(e){
-//            e = fixEvent(e);
-//
-//
-//
-//            that._log(getCoords(slider).top + ' ' + getCoords(slider).left);
-//            that.startX = getCoords(slider).left;
-//        }
         var start = false;
         var startX = 0;
         var stopX = 0;
-        var cu = 0;
-        var newLeft = 0;
-
-
+        var left =  that.state.a;
 
         dragObject.onmousedown = function(e){
             e = fixEvent(e);
+
             start = true;
             startX = e.pageX;
+
+            that._log(that.state.a + '__' + left + '___' + that.state.z);
         };
 
         dragObject.onmousemove = function(e){
             e = fixEvent(e);
             if (!start) return;
+
+
+
             newX = e.pageX;
-
-            newLeft = cu - (startX - newX);
-            that._log(cu + ' ' + (startX - newX));
-            dragObject.style.left = newLeft + 'px';
+            delta = startX - newX;
+            newLeft = left - delta;
 
 
-
-
-
-
-
+            that.state = {
+                a: newLeft,
+                z: that.state.z
+            }
+            that.setPos(dragObject);
 
 
 
 
-            dragObject.innerHTML =  dragObject.style.left;
+
+
+
+
+
+            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
         dragObject.onmouseup = function(e){
@@ -99,37 +96,31 @@ dChart.prototype = {
 
             stopX = e.pageX;
             if (start) {that._log(stopX + '---'); start = false}
-            cu = newLeft;
 //            var newLeft = getCoords(dragObject).left++;
 //            that._log(e.pageX);
 //            dragObject.style.left =e.pageX - getCoords(dragObject).left + 'px';
+
+            start = false;
+            startX = 0;
+            stopX = 0;
+            left =  that.state.a;
         };
 
-
-//        that.handler_right;
-
-//        that.handler_left;
-//
-//        addEvent(that.handler_right, "mousedown", function(e) {
-//            that._log("mousedown");
-//
-//        });
-//        addEvent(document, "mouseup", function(e) {
-//            that._log("up");
-//
-//        });
-//        addEvent(document, "mousemove",  function(e) {egfweg(e)
-//        });
-//        var egfweg = function(event) {
-//            that._log(event.clientX, event.clientY);
-//        }
         //todo prevent selection
     },
     getPos: function(obj){
-        that = this;
+        var that = this;
         console.log(obj.offsetLeft);
 
             return { top: 0 , left:obj.offsetLeft};
+    },
+
+    setPos: function(){
+        var that = this;
+        var dragObject = that.slider;
+            dragObject.style.left = that.state.a + 'px';
+
+        that._log(that.state.a + ' ' + newLeft);
     },
 
 
@@ -157,7 +148,7 @@ dChart.prototype = {
 
 
     prepareData: function() {
-        that = this;
+        var that = this;
         _a = Math.min(that.a,that.z);
         _z = Math.max(that.a,that.z);
         that.a = _a;

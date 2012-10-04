@@ -13,8 +13,8 @@
                 new dChart(
                         "chart_1",
                         {
-                              a: 444
-                            , z: 0
+                              a: 34
+                            , z: 450
                             , h: 200
                             , n: 200
                             , r: 200
@@ -27,7 +27,7 @@
                 new dChart(
                         "chart_2",
                         {
-                              a: 24
+                              a: 0
                             , z: 333
                             , h: 200
                             , n: 200
@@ -100,7 +100,13 @@
     if (document.addEventListener) {
         document.addEventListener('DOMContentLoaded', dynamicChart(), false);
     } else {
-        document.attachEvent('DOMContentLoaded', dynamicChart());
+
+        document.attachEvent("onreadystatechange", function(){
+            if ( document.readyState === "complete" ) {
+                dynamicChart();
+            }
+        })
+
     }
 
 </script>
