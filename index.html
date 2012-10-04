@@ -7,10 +7,105 @@
     <link rel="stylesheet" href="style.css"/>
     <script type="text/javascript" src="util.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript">
+        function dynamicChart() {
+            (function () {
+                new dChart(
+                        "chart_1",
+                        {
+                              a: 444
+                            , z: 0
+                            , h: 200
+                            , n: 200
+                            , r: 200
+                        },
+                        function(){
+                            alert(1);
+                        }
+                );
+
+                new dChart(
+                        "chart_2",
+                        {
+                              a: 24
+                            , z: 333
+                            , h: 200
+                            , n: 200
+                            , r: 200
+                        },
+                        function(){
+                            alert(1);
+                        }
+                );
+
+
+
+//
+//                var sssdfg  = document.getElementById("stp");
+//
+//
+//                addEvent(sssdfg, "click", function() { alert('hi') });
+//                addEvent(sssdfg, "mouseover", function() { sssdfg.style.borderColor = "#ef9900"; addClass(sssdfg, "hidden");});
+//                addEvent(sssdfg, "mouseout", function() { sssdfg.style.borderColor = "#ef9900";  addClass(sssdfg, "hidden2") });
+//                addEvent(sssdfg, "mousedown", function() { removeClass(sssdfg, "hidden")});
+//                addEvent(sssdfg, "mouseup", function() {  removeClass(sssdfg, "hidden2")});
+
+            })();
+        }
+    </script>
 </head>
-<body>
+<body style="background: #343434">
 
 
+<div style="width: 900px; height: 400px; background: #fff; margin: 120px auto">
+
+
+    <div id="buttons" class="button_container">
+
+        <fieldset>
+            <input type="radio" name="interval" id="" value="день">
+            <input type="radio" name="interval" id="" value="месяц">
+            <input type="radio" name="interval" id="" value="год">
+            <input type="radio" name="interval" id="" value="все сразу">
+        </fieldset>
+        
+        
+    </div>
+    <div id="chart_0" class="chart_container">
+        ewfwef
+    </div>
+    <div id="chart_1" class="chart_container">
+        <img src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0">
+        <!--<div id="stp" class="stp">-->
+
+            <!--<div class="handler handler_right"></div>-->
+            <!--<div class="handler handler_left"></div>-->
+        <!--</div>-->
+    </div>
+    <div id="chart_2" class="chart_container">
+        <img src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0">
+        <!--<div id="stp" class="stp">-->
+
+            <!--<div class="handler handler_right"></div>-->
+            <!--<div class="handler handler_left"></div>-->
+        <!--</div>-->
+    </div>
+
+
+</div>
+<script type="text/javascript">
+
+
+
+    if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', dynamicChart(), false);
+    } else {
+        document.attachEvent('DOMContentLoaded', dynamicChart());
+    }
+
+</script>
+
+<aside id="log" class="log_fixed">log:</aside>
 </body>
 </html>
 

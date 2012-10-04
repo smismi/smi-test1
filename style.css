@@ -1,0 +1,51 @@
+
+.chart_container {
+    height: 200px;
+    border: 1px solid #ff3d35;
+    position: relative;
+}
+.stp {
+    width: 100px;
+    height: 100%;
+    border: 1px solid #ffdd00;
+    position: absolute;
+    background: #ffffff
+}
+.handler {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ade412;
+    top: 50%;
+    margin-top: -10px;
+}
+.handler_right {
+
+    right: -10px;
+}
+.handler_left {
+    left: -10px;
+}
+.hidden {
+    background: #f00
+}
+
+.hidden2 {
+    background: #00f
+}
+
+
+
+.log_fixed {
+    position: fixed;
+    /*height: 100%;*/
+    right:0;
+    bottom:0;
+    width: 100px;
+    font-size: 10px;
+    background: #000;
+    color: #3dff18;
+    overflow: auto;
+}
+
+
