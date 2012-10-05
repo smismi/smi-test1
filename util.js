@@ -30,8 +30,7 @@ removeClass = function (el, clss) {
     }
 };
 getClasses = function (el) {
-   var classes = el.className.split(" ");
-
+    var classes = el.className.split(" ");
     return classes;
 };
 

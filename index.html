@@ -8,8 +8,16 @@
     <script type="text/javascript" src="util.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
     <script type="text/javascript">
+        function sw(obj) {
+            var i;
+            var elems = document.getElementsByTagName("button");
+            for (i = 0; i < elems.length; i++) {
+                removeClass(elems[i], "switch_label_selected");
+            }
+            addClass(obj, "switch_label_selected");
+            alert(obj.value);
+        }
         function dynamicChart() {
-            (function () {
                 new dChart(
                         "chart_1",
                         {
@@ -23,63 +31,38 @@
                             alert(1);
                         }
                 );
-
-                new dChart(
-                        "chart_2",
-                        {
-                              a: 0
-                            , z: 333
-                            , h: 200
-                            , n: 200
-                            , r: 200
-                        },
-                        function(){
-                            alert(1);
-                        }
-                );
-
-
-
-//
-//                var sssdfg  = document.getElementById("stp");
-//
-//
-//                addEvent(sssdfg, "click", function() { alert('hi') });
-//                addEvent(sssdfg, "mouseover", function() { sssdfg.style.borderColor = "#ef9900"; addClass(sssdfg, "hidden");});
-//                addEvent(sssdfg, "mouseout", function() { sssdfg.style.borderColor = "#ef9900";  addClass(sssdfg, "hidden2") });
-//                addEvent(sssdfg, "mousedown", function() { removeClass(sssdfg, "hidden")});
-//                addEvent(sssdfg, "mouseup", function() {  removeClass(sssdfg, "hidden2")});
-
-            })();
         }
     </script>
 </head>
 <body style="background: #343434">
-
-
 <div style="width: 900px; height: 400px; background: #fff; margin: 120px auto">
 
 
     <div id="buttons" class="button_container">
 
-        <fieldset>
-            <input type="radio" name="interval" id="" value="день">
-            <input type="radio" name="interval" id="" value="месяц">
-            <input type="radio" name="interval" id="" value="год">
-            <input type="radio" name="interval" id="" value="все сразу">
+        <fieldset style="padding: 30px" id="switch">
+            <button class="switch_label" onclick="sw(this)" value="День">День</button>
+            <button class="switch_label" onclick="sw(this)" value="Неделя">Неделя</button>
+            <button class="switch_label switch_label_selected" onclick="sw(this)" value="Месяц">Месяц</button>
+            <button class="switch_label" onclick="sw(this)" value="Квартал">Квартал</button>
+            <button class="switch_label" onclick="sw(this)" value="Год">Год</button>
         </fieldset>
-        
+        <fieldset style="padding: 30px" id="">
+            <button class="switch_label" onclick="sw(this)" value="День">12.02.12    24.12.12</button>
+
+        </fieldset>
+
         
     </div>
     <div id="chart_0" class="chart_container">
-        ewfwef
+        <img id="chart_0_img" src="img/chart_0.png" alt="">
     </div>
     <div id="chart_1" class="chart_container">
-        <img id="chart_1_img" src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0">
+        <img id="chart_1_img" src="img/chart_1.png" alt="">
     </div>
-    <div id="chart_2" class="chart_container">
-        <img id="chart_2_img" src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0"
-    </div>
+    <!--<div id="chart_2" class="chart_container">-->
+        <!--<img id="chart_2_img" src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0"-->
+    <!--</div>-->
 
 
 </div>
@@ -90,13 +73,11 @@
     if (document.addEventListener) {
         document.addEventListener('DOMContentLoaded', dynamicChart(), false);
     } else {
-
         document.attachEvent("onreadystatechange", function(){
             if ( document.readyState === "complete" ) {
                 dynamicChart();
             }
         })
-
     }
 
 </script>
