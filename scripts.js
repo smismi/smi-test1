@@ -1,14 +1,18 @@
 dChart = function(id, options, callback) {
     var that = this;
         that.obj = $(id);
+//        img = $(id + "_img");
 
     that.state = {
         a: 0,
         z: 0
-    }
+    };
     // User defined options
     for (i in options) that.state[i] = options[i];
 
+//    img.ondragstart = function() {
+//        return false;
+//    };
 
     that.initSlider();
 
@@ -21,15 +25,10 @@ dChart.prototype = {
         var that = this;
         // Set starting position
 
-
         that.slider = document.createElement("div");
-
-
-
 
         that.obj.appendChild(that.slider);
         addClass(that.slider, "stp");
-
 
         that.handler_right = document.createElement("div");
         that.handler_left = document.createElement("div");
@@ -38,13 +37,11 @@ dChart.prototype = {
         addClass(that.handler_right, "handler handler_right");
         addClass(that.handler_left, "handler handler_left");
 
-
         that.prepareData();
 
 //        that.slider.innerHTML =  that.state.a + ' ' + that.state.z;
         that.slider.style.left = $px(that.state.a);
         that.slider.style.width = $px(that.state.z - that.state.a);
-
 
         that.bindHandlers();
     },
@@ -52,10 +49,10 @@ dChart.prototype = {
     bindHandlers: function(){
         var that = this;
 
-
         var dragObject = that.slider;
         var handler_left = that.handler_left;
         var handler_right = that.handler_right;
+
         var start = false;
         var move = false;
         var move_z = false;
@@ -66,11 +63,28 @@ dChart.prototype = {
         var left =  that.state.a;
         var right =  that.state.z;
 
+//        dragObject.ondragstart = function() {
+//            return false;
+//        };
+//
+//        handler_left.ondragstart = function() {
+//            return false;
+//        };
+//
+//        handler_right.ondragstart = function() {
+//            return false;
+//        };
+//
+//        handler_right.ondragstart = function() {
+//            return false;
+//        };
 
 
 
 
-        document.onmousedown = function(e){
+        dragObject.onmousedown = function(e){
+
+
             e = fixEvent(e);
 
             if (e.target == handler_left) {
@@ -93,7 +107,7 @@ dChart.prototype = {
             startX = e.pageX;
 
         };
-        document.onmousemove = function(e){
+        dragObject.onmousemove = function(e){
             e = fixEvent(e);
             if (!start) return;
 
@@ -111,13 +125,13 @@ dChart.prototype = {
                 a: newLeft,
                 z: newRight
             };
-            that._log(that.state.a + '__' + delta + '___' + that.state.z);
+//            that._log(that.state.a + '__' + delta + '___' + that.state.z);
             that.setPos();
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
 
-        document.onmouseup = function(e){
+        dragObject.onmouseup = function(e){
             e = fixEvent(e);
             if (!start) return;
             start = false;
