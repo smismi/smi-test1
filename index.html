@@ -8,75 +8,99 @@
     <script type="text/javascript" src="util.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
     <script type="text/javascript">
+
         function sw(obj) {
             var i;
-            var elems = document.getElementsByTagName("button");
+            var elems = $('buttons').getElementsByTagName("button");
             for (i = 0; i < elems.length; i++) {
-                removeClass(elems[i], "switch_label_selected");
+                removeClass(elems[i], "btn_selected");
             }
-            addClass(obj, "switch_label_selected");
+            addClass(obj, "btn_selected");
             alert(obj.value);
         }
-        function dynamicChart() {
-                new dChart(
-                        "chart_1",
-                        {
-                              a: 34
-                            , z: 450
-                            , h: 200
-                            , n: 200
-                            , r: 200
-                        },
-                        function(){
-                            alert(1);
-                        }
-                );
+        function dynamicPlot() {
+            var plot_one = new dPlot(
+                    "plot_1_range",
+                    {
+                          a: 34
+                        , z: 450
+                    },
+                    function(){
+                        alert(1);
+                    }
+            );
+
+            (function styleTicks() {
+                var i;
+                var plot_ticks = $("plot_ticks");
+                var ticks = plot_ticks.getElementsByClassName("tick");
+                var c = ticks.length-1;
+                var w = Math.floor(786 / c);
+                for (i = 1; i < ticks.length-1; i++) {
+                    ticks[i].style.left = w * i - 15 + 'px';
+                    ticks[i].onclick = function(){
+
+
+                        plot_one.initSlider({
+                            a: 34 * i
+                            , z: (34 * i) + 200
+                        });
+                    }
+                }
+            })();
+        }
+        function styleTicks() {
+                alert('1');
         }
     </script>
 </head>
-<body style="background: #343434">
-<div style="width: 900px; height: 400px; background: #fff; margin: 120px auto">
+<body>
+<div style="width: 829px; height: 371px; background: #fff; margin: 87px auto">
 
 
-    <div id="buttons" class="button_container">
+    <div id="buttons" class="b">
 
-        <fieldset style="padding: 30px" id="switch">
-            <button class="switch_label" onclick="sw(this)" value="День">День</button>
-            <button class="switch_label" onclick="sw(this)" value="Неделя">Неделя</button>
-            <button class="switch_label switch_label_selected" onclick="sw(this)" value="Месяц">Месяц</button>
-            <button class="switch_label" onclick="sw(this)" value="Квартал">Квартал</button>
-            <button class="switch_label" onclick="sw(this)" value="Год">Год</button>
+        <fieldset id="switch" class="fld_set fld_set_switch">
+            <button class="btn" onclick="sw(this)" value="День">День</button>
+            <button class="btn" onclick="sw(this)" value="Неделя">Неделя</button>
+            <button class="btn btn_selected" onclick="sw(this)" value="Месяц">Месяц</button>
+            <button class="btn" onclick="sw(this)" value="Квартал">Квартал</button>
+            <button class="btn" onclick="sw(this)" value="Год">Год</button>
         </fieldset>
-        <fieldset style="padding: 30px" id="">
-            <button class="switch_label" onclick="sw(this)" value="День">12.02.12    24.12.12</button>
-
+        <fieldset id="date" class="fld_set fld_set_date">
+            <button class="btn" onclick="sw(this)" value="День">12.02.12    24.12.12</button>
         </fieldset>
-
-        
+        <fieldset id="full" class="fld_set fld_set_fullscreen">
+            <button class="btn btn_iconed" onclick="sw(this)" value="День"><img src="img/0.gif" class="ico ico_fullscreen" alt=""></button>
+        </fieldset>
     </div>
-    <div id="chart_0" class="chart_container">
-        <img id="chart_0_img" src="img/chart_0.png" alt="">
+    <div class="b plot plot_0">
+        <img src="img/plot_0.png" alt="">
     </div>
-    <div id="chart_1" class="chart_container">
-        <img id="chart_1_img" src="img/chart_1.png" alt="">
+    <div class="b plot">
+        <img src="img/plot_1.png" alt="">
+        <div id="plot_1_range"></div>
+
     </div>
-    <!--<div id="chart_2" class="chart_container">-->
-        <!--<img id="chart_2_img" src="img/chart_1.png" alt="" height="100" width="900" style="position: absolute; top:0; left:0"-->
-    <!--</div>-->
-
-
+    <div id="plot_ticks" class="plot_ticks"><div class="tick">09 Apr</div>
+    <div class="tick">10 Apr</div>
+    <div class="tick">11 Apr</div>
+    <div class="tick">12 Apr</div>
+    <div class="tick">13 Apr</div>
+    <div class="tick">14 Apr</div>
+    <div class="tick">15 Apr</div>
+    <div class="tick">16 Apr</div>
+</div>
 </div>
 <script type="text/javascript">
 
 
 
     if (document.addEventListener) {
-        document.addEventListener('DOMContentLoaded', dynamicChart(), false);
+        document.addEventListener('DOMContentLoaded', dynamicPlot(), false);
     } else {
         document.attachEvent("onreadystatechange", function(){
-            if ( document.readyState === "complete" ) {
-                dynamicChart();
-            }
+            if ( document.readyState === "complete" ) { dynamicPlot(); }
         })
     }
 

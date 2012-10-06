@@ -1,4 +1,4 @@
-dChart = function(id, options, callback) {
+dPlot = function(id, options, callback) {
     var that = this;
         that.obj = $(id);
 //        img = $(id + "_img");
@@ -14,19 +14,19 @@ dChart = function(id, options, callback) {
 //        return false;
 //    };
 
-    that.initSlider();
+    that.initSlider(that.state);
 
 
 };
 
 
-dChart.prototype = {
-    initSlider: function() {
+dPlot.prototype = {
+    initSlider: function(state) {
         var that = this;
         // Set starting position
 
         that.slider = document.createElement("div");
-
+        that.obj.innerHTML = "";
         that.obj.appendChild(that.slider);
         addClass(that.slider, "stp");
 
@@ -40,8 +40,8 @@ dChart.prototype = {
         that.prepareData();
 
 //        that.slider.innerHTML =  that.state.a + ' ' + that.state.z;
-        that.slider.style.left = $px(that.state.a);
-        that.slider.style.width = $px(that.state.z - that.state.a);
+        that.slider.style.left = $px(state.a);
+        that.slider.style.width = $px(state.z - state.a);
 
         that.bindHandlers();
     },
@@ -60,8 +60,8 @@ dChart.prototype = {
 
         var startX = 0;
         var stopX = 0;
-        var left =  that.state.a;
-        var right =  that.state.z;
+        var left =  state.a;
+        var right =  state.z;
 
 //        dragObject.ondragstart = function() {
 //            return false;
@@ -121,7 +121,7 @@ dChart.prototype = {
             newLeft = left - ((move_a || move) ? delta : 0);
             newRight = right - ((move_z || move) ? delta : 0);
 
-            that.state = {
+            state = {
                 a: newLeft,
                 z: newRight
             };
@@ -137,8 +137,8 @@ dChart.prototype = {
             start = false;
             startX = 0;
             stopX = 0;
-            left =  that.state.a;
-            right =  that.state.z;
+            left =  state.a;
+            right =  state.z;
             that.setPos();
             move = false;
             move_z = false;
@@ -151,8 +151,8 @@ dChart.prototype = {
             start = false;
             startX = 0;
             stopX = 0;
-            left =  that.state.a;
-            right =  that.state.z;
+            left =  state.a;
+            right =  state.z;
             that.setPos();
             move = false;
             move_z = false;
@@ -171,8 +171,8 @@ dChart.prototype = {
 
     setPos: function(){
         var that = this;
-            that.slider.style.left = that.state.a + 'px';
-            that.slider.style.width = that.state.z - that.state.a + 'px';
+            that.slider.style.left = state.a + 'px';
+            that.slider.style.width = state.z - state.a + 'px';
 //            that.slider.style.width = that.state.z - that.state.a + 'px';
     },
 
