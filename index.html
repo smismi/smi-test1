@@ -19,35 +19,30 @@
             alert(obj.value);
         }
         function dynamicPlot() {
-            var plot_one = new dPlot(
-                    "plot_1_range",
-                    {
-                          a: 34
-                        , z: 450
-                    },
-                    function(){
-                        alert(1);
+                (function styleTicks() {
+                    var i;
+                    var plot_ticks = $("plot_ticks");
+                    var ticks = plot_ticks.getElementsByClassName("tick");
+                    var c = ticks.length-1;
+                    var w = Math.floor(786 / c);
+                    for (i = 1; i < ticks.length-1; i++) {
+                        ticks[i].style.left = w * i - 15 + 'px';
+                        ticks[i].onclick = function(e, i){
+                            var j = i;
+                            alert(j);
+                        }
                     }
-            );
-
-            (function styleTicks() {
-                var i;
-                var plot_ticks = $("plot_ticks");
-                var ticks = plot_ticks.getElementsByClassName("tick");
-                var c = ticks.length-1;
-                var w = Math.floor(786 / c);
-                for (i = 1; i < ticks.length-1; i++) {
-                    ticks[i].style.left = w * i - 15 + 'px';
-                    ticks[i].onclick = function(){
-
-
-                        plot_one.initSlider({
-                            a: 34 * i
-                            , z: (34 * i) + 200
-                        });
-                    }
-                }
-            })();
+                })();
+                var plot_one = new dPlot(
+                        "plot_1_range",
+                        {
+                              a: 34
+                            , z: 450
+                        },
+                        function(){
+                            alert(1);
+                        }
+                );
         }
         function styleTicks() {
                 alert('1');
