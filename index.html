@@ -27,10 +27,6 @@
                     var w = Math.floor(786 / c);
                     for (i = 1; i < ticks.length-1; i++) {
                         ticks[i].style.left = w * i - 15 + 'px';
-                        ticks[i].onclick = function(e, i){
-                            var j = i;
-                            alert(j);
-                        }
                     }
                 })();
                 var plot_one = new dPlot(
@@ -43,6 +39,16 @@
                             alert(1);
                         }
                 );
+//                var plot_two = new dPlot(
+//                        "plot_2_range",
+//                        {
+//                              a: 34
+//                            , z: 450
+//                        },
+//                        function(){
+//                            alert(1);
+//                        }
+//                );
         }
         function styleTicks() {
                 alert('1');
@@ -77,6 +83,11 @@
         <div id="plot_1_range"></div>
 
     </div>
+    <!--<div class="b plot">-->
+        <!--<img src="img/plot_1.png" alt="">-->
+        <!--<div id="plot_2_range"></div>-->
+
+    <!--</div>-->
     <div id="plot_ticks" class="plot_ticks"><div class="tick">09 Apr</div>
     <div class="tick">10 Apr</div>
     <div class="tick">11 Apr</div>

@@ -1,4 +1,4 @@
-dPlot = function(id, options, callback) {
+dPlot = function(id, options) {
     var that = this;
         that.obj = $(id);
 //        img = $(id + "_img");
@@ -21,6 +21,10 @@ dPlot = function(id, options, callback) {
 
 
 dPlot.prototype = {
+    callback: function() {
+        var that = this;
+        alert(that.state.a + " " + that.state.z);
+    },
     initSlider: function() {
         var that = this;
         // Set starting position
@@ -63,21 +67,21 @@ dPlot.prototype = {
         var left =  that.state.a;
         var right =  that.state.z;
 
-//        dragObject.ondragstart = function() {
-//            return false;
-//        };
-//
-//        handler_left.ondragstart = function() {
-//            return false;
-//        };
-//
-//        handler_right.ondragstart = function() {
-//            return false;
-//        };
-//
-//        handler_right.ondragstart = function() {
-//            return false;
-//        };
+        dragObject.ondragstart = function() {
+            return false;
+        };
+
+        handler_left.ondragstart = function() {
+            return false;
+        };
+
+        handler_right.ondragstart = function() {
+            return false;
+        };
+
+        handler_right.ondragstart = function() {
+            return false;
+        };
 
 
 
@@ -107,7 +111,7 @@ dPlot.prototype = {
             startX = e.pageX;
 
         };
-        dragObject.onmousemove = function(e){
+        document.onmousemove = function(e){
             e = fixEvent(e);
             if (!start) return;
 
@@ -131,7 +135,7 @@ dPlot.prototype = {
 
         };
 
-        dragObject.onmouseup = function(e){
+        document.onmouseup = function(e){
             e = fixEvent(e);
             if (!start) return;
             start = false;
@@ -143,6 +147,7 @@ dPlot.prototype = {
             move = false;
             move_z = false;
             move_a = false;
+            that.callback();
 //            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
         };
         document.onclick = function(e){
@@ -157,6 +162,7 @@ dPlot.prototype = {
             move = false;
             move_z = false;
             move_a = false;
+            that.callback();
 //            e.stopPropagation()
         };
         //todo prevent selection
