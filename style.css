@@ -24,7 +24,6 @@ body {
 }
 .b {
     padding: 22px;
-    overflow: hidden;
 }
 .fld_set {
 
@@ -47,8 +46,8 @@ body {
 .plot {
     position: relative;
     height: 50px;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
+    margin: 0 22px;
 }
 
 .plot_0 {

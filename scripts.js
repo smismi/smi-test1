@@ -119,19 +119,29 @@ dPlot.prototype = {
 
             newX = e.pageX;
             delta = startX - newX;
-//            newLeft = left -  (move_a || move) ? delta : 0;
-//            newRight = right - (move_z || move) ? delta : 0;
 
             newLeft = left - ((move_a || move) ? delta : 0);
             newRight = right - ((move_z || move) ? delta : 0);
-
+            if (newLeft < 0) {
+                that.state = {
+                    a: 0,
+                    z: newRight
+                };
+                return ;
+            }
+            if (newRight > 786) {
+                that.state = {
+                    a: newLeft,
+                    z: 786
+                };
+                return ;
+            }
             that.state = {
                 a: newLeft,
                 z: newRight
             };
-//            that._log(that.state.a + '__' + delta + '___' + that.state.z);
+
             that.setPos();
-//            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
 
         };
 
@@ -168,15 +178,9 @@ dPlot.prototype = {
         //todo prevent selection
 
     },
-    getPos: function(obj){
-        var that = this;
-        console.log(obj.offsetLeft);
-
-            return { top: 0 , left:obj.offsetLeft};
-    },
-
     setPos: function(){
         var that = this;
+        that.prepareData();
             that.slider.style.left = that.state.a + 'px';
             that.slider.style.width = that.state.z - that.state.a + 'px';
 //            that.slider.style.width = that.state.z - that.state.a + 'px';

@@ -1,11 +1,9 @@
-function $(el) {
+$ = function (el) {
     return document.getElementById(el);
-}
-function $px(x) {
+};
+$px = function (x) {
     return x + 'px';
-}
-
-var addClass, removeClass
+};
 
 addClass = function (el, clss) {
     classes = getClasses(el);
