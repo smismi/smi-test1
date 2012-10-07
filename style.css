@@ -18,27 +18,34 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
+
 body {
     font: normal 12px Arial;
     background: #d9d9d9;
 }
+
 .b {
     padding: 22px;
 }
-.fld_set {
 
-}
+/*.fld_set {*/
+
+/*}*/
+
 .fld_set_switch {
     float: left;
 }
+
 .fld_set_date {
     margin-left: 19px;
     float: left;
 }
+
 .fld_set_date .btn {
    padding-top: 5px;
    padding-bottom: 13px;
 }
+
 .fld_set_fullscreen {
     float: right;
 }
@@ -51,10 +58,11 @@ body {
 }
 
 .plot_0 {
-    position: relative;
     height: 178px;
 }
-#plot_1_range {position: absolute;
+
+.plot_range {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -79,27 +87,18 @@ body {
     height: 22px;
     background-repeat: no-repeat;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAvVJREFUeNqMVc9rE0EUnp3dbiIhrUUbQotttQ0YmuLBQnvRoweLZ/8B6an04NWCePCql5wFEYRCbwVBcih6q5eYFtpija2FGkiJpmmS3Ww2O36vzshk20AHPmbn5b1v3q95MdjFyzg5OUlHo9GHhmHc55zfwT4ihDgKgqCA/bPruh8GBgZ2oCvYJRY/PT1dbLVaXwHhOI5oNpui0Wic7XQmOf1OeqR/zqPQN6/Vas9t237W6XQ4vOp9M+fMNM3A87yX/f39LyAKlNc6qXl8fLwYi8VeQZGzSy44ECCKp0NDQ1kcO0xznRcKhWnLsp4gPA4v2WVB+mRH9orPkt5ag4ODjxBuhhT1tfvjkO0dHrFf5QobTlxjqdERdvvWaNjhDNlj3wbaitRGju4h7C7NHRCuf8nDo3+5LYL84KjEfFyc1ojJEbLH52vAt6TLNjDl+34X6fb3fdZsOufySPLU6HB3xQ1jSvK4irQPtyXD1d7bP2Tt0EVK7vuz4W5IEg99KlKrXq+XI5FIUlekHO4WD86Rjk2Ms3Du0cNlWSPOZU4N9Oceha8jPTkOTz3muM5/0JnkYV2yV1xcNqwolUr5sGJm8iZ7PP+ApcZuMIFi0U5nkod1yV5xWfIl+J+wEonEfDwen1Ah4RmiymPsbiZNTc6oOxDmmVxfOBfJnniIz5Qu921sbLhzc3PxZDI5i4FhAIyAN86Qb4YBc7bTWf1GQHHF5ubmu+Xl5Y/gqVH1TVU8SvLa2trPmZmZK/B4WifuBSLM5/PvFxYW3sD+N1AHPDM0UEwQ76ZSqRbG2nWEfLUXYbVaPUB0K0tLS29hVwGqADV1R5EKfS7mcrki8vQNvVcBfEwjG4jinVfK5fL21tZWbnV1dSWbza5Lwj/SyzbxdE0pIArEgasSMSCizQghi9ECGtI7AlXOVVPK0kgD+UMgb3QkaVQ+P0XqSb2G9K4pZcFFQ5rpRZNEtnx6YU/bkshTbdRr8oflhrxAQZEGGsRF/1F/BRgAtEMRp+Atic8AAAAASUVORK5CYII=);
-
     top: 50%;
     margin-top: -11px;
     cursor: pointer;
 }
-.handler_right {
 
+.handler_right {
     right: -11px;
 }
+
 .handler_left {
     left: -11px;
 }
-.hidden {
-    background: #f00
-}
-
-.hidden2 {
-    background: #00f
-}
-
-
 
 .log_fixed {
     position: fixed;
@@ -113,11 +112,9 @@ body {
     overflow: auto;
 }
 
-
-
-/*#chart_1 {*/
-    /*background: url("img/chart_1.png") no-repeat top left;*/
-/*}*/
+.buttons {
+    overflow: hidden;
+}
 
 .btn {
     position: relative;
@@ -158,11 +155,13 @@ body {
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
     box-shadow:         inset 0 0 5px rgba(0,0,0,0.4);
 }
+
 .btn_iconed {
     padding: 7px 9px;
     font-size: 0;
     line-height: 0;
 }
+
 fieldset .btn:first-child {
     padding-left: 10px;
     -webkit-border-top-left-radius: 5px;
@@ -183,6 +182,7 @@ fieldset .btn:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
 .plot_ticks {
     color: #7c7c7c;
     font-size: 9px;
@@ -199,16 +199,19 @@ fieldset .btn:last-child {
     background: linear-gradient(to bottom,  #f8f8f8 0%,#ececec 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#ececec',GradientType=0 );
 }
+
 .tick {
     top: 4px;
     display: block;
     position: absolute;
     text-align: center;
 }
+
 .plot_ticks .tick:first-child {
     left: 0;
     text-align: left;
 }
+
 .plot_ticks .tick:last-child {
     right: 0;
     text-align: right;
@@ -218,11 +221,13 @@ fieldset .btn:last-child {
     width: 21px;
     height: 21px;
 }
+
 .ico_fullscreen {
     background-repeat: no-repeat;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAASFJREFUeNpi/P//PwMtQFVVFVEGMzEMMBjWDmBEw9OxKWKhgyeZgXgREEcNRBRwAvE6NMun08sBPEC8HYj9kMQWAHEWvRyQA8T2SPzFQJxCzyjoAOJKKHslECcC8V96J0KQI44A8XFsloOzCq1KQmIBSSGAVrwyomU1S6hvGdra2uhaEMHy+WEgrhiIknAOUj5vJ9URTFSwPAGJfxCIp9DLAdOAOBmJvxWIPYH4C70ckInEXgbEQUD8fSDSAKhsjwbiXwNVHYNC4j8aHm2QEN9qGeiimLGyspIoFwCLV8bRRimtHEBU65Ue1TEbEM/H1XqldRQQbL3S0gGw1qs3kvhc9NYrLR2A3npdgK31SksHILdel9HTcuRESLD1SisAEGAA4o0/qrBkSr0AAAAASUVORK5CYII=);
     background-position: -11px 0px;
 }
+
 .ico_fullscreen_on {
     background-position: -1px -11px;
 }

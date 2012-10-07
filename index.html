@@ -9,7 +9,7 @@
     <script type="text/javascript" src="scripts.js"></script>
     <script type="text/javascript">
 
-        function sw(obj) {
+        function changeDate(obj) {
             var i;
             var elems = $('buttons').getElementsByTagName("button");
             for (i = 0; i < elems.length; i++) {
@@ -17,6 +17,22 @@
             }
             addClass(obj, "btn_selected");
             alert(obj.value);
+        }
+        function changeFull() {
+            var btnFull = $('btn_full');
+            var btnFullImg = btnFull.getElementsByTagName("img")[0];
+
+            if(getClasses(btnFull).indexOf("btn_selected") == -1)  {
+                addClass(btnFull,"btn_selected");
+            } else {
+                removeClass(btnFull,"btn_selected");
+            };
+
+            if(getClasses(btnFullImg).indexOf("ico_fullscreen_on") == -1)  {
+                addClass(btnFullImg,"ico_fullscreen_on");
+            } else {
+                removeClass(btnFullImg,"ico_fullscreen_on");
+            }
         }
         function dynamicPlot() {
                 (function styleTicks() {
@@ -34,24 +50,22 @@
                         {
                               a: 34
                             , z: 450
-                        },
-                        function(){
-                            alert(1);
                         }
+//                        ,
+//                        function(){
+//                            alert(this.id);
+//                        }
                 );
 //                var plot_two = new dPlot(
 //                        "plot_2_range",
 //                        {
-//                              a: 34
-//                            , z: 450
+//                              a: 134
+//                            , z: 350
 //                        },
 //                        function(){
 //                            alert(1);
 //                        }
 //                );
-        }
-        function styleTicks() {
-                alert('1');
         }
     </script>
 </head>
@@ -59,20 +73,20 @@
 <div style="width: 829px; height: 371px; background: #fff; margin: 87px auto">
 
 
-    <div id="buttons" class="b">
+    <div id="buttons" class="b buttons">
 
         <fieldset id="switch" class="fld_set fld_set_switch">
-            <button class="btn" onclick="sw(this)" value="День">День</button>
-            <button class="btn" onclick="sw(this)" value="Неделя">Неделя</button>
-            <button class="btn btn_selected" onclick="sw(this)" value="Месяц">Месяц</button>
-            <button class="btn" onclick="sw(this)" value="Квартал">Квартал</button>
-            <button class="btn" onclick="sw(this)" value="Год">Год</button>
+            <button class="btn" onclick="changeDate(this)" value="День">День</button>
+            <button class="btn" onclick="changeDate(this)" value="Неделя">Неделя</button>
+            <button class="btn btn_selected" onclick="changeDate(this)" value="Месяц">Месяц</button>
+            <button class="btn" onclick="changeDate(this)" value="Квартал">Квартал</button>
+            <button class="btn" onclick="changeDate(this)" value="Год">Год</button>
         </fieldset>
         <fieldset id="date" class="fld_set fld_set_date">
-            <button class="btn" onclick="sw(this)" value="День">12.02.12    24.12.12</button>
+            <button class="btn" onclick="changeDate(this)" value="А вот другая кнопка">12.02.12    24.12.12</button>
         </fieldset>
         <fieldset id="full" class="fld_set fld_set_fullscreen">
-            <button class="btn btn_iconed" onclick="sw(this)" value="День"><img src="img/0.gif" class="ico ico_fullscreen" alt=""></button>
+            <button class="btn btn_iconed" id="btn_full" onclick="changeFull()" value="День"><img src="img/0.gif" class="ico ico_fullscreen" alt=""></button>
         </fieldset>
     </div>
     <div class="b plot plot_0">
@@ -80,13 +94,12 @@
     </div>
     <div class="b plot">
         <img src="img/plot_1.png" alt="">
-        <div id="plot_1_range"></div>
+        <div id="plot_1_range" class="plot_range"></div>
 
     </div>
     <!--<div class="b plot">-->
         <!--<img src="img/plot_1.png" alt="">-->
-        <!--<div id="plot_2_range"></div>-->
-
+        <!--<div id="plot_2_range" class="plot_range"></div>-->
     <!--</div>-->
     <div id="plot_ticks" class="plot_ticks"><div class="tick">09 Apr</div>
     <div class="tick">10 Apr</div>
@@ -99,9 +112,6 @@
 </div>
 </div>
 <script type="text/javascript">
-
-
-
     if (document.addEventListener) {
         document.addEventListener('DOMContentLoaded', dynamicPlot(), false);
     } else {
@@ -109,9 +119,7 @@
             if ( document.readyState === "complete" ) { dynamicPlot(); }
         })
     }
-
 </script>
-
 <div id="log" class="log_fixed">log:</div>
 </body>
 </html>

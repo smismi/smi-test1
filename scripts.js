@@ -1,29 +1,23 @@
-dPlot = function(id, options) {
+dPlot = function(id, options, func) {
     var that = this;
         that.obj = $(id);
-//        img = $(id + "_img");
+        that.func = func;
 
     that.state = {
         a: 0,
         z: 0
     };
-    // User defined options
+
     for (i in options) that.state[i] = options[i];
 
-//    img.ondragstart = function() {
-//        return false;
-//    };
-
     that.initSlider();
-
-
 };
 
 
 dPlot.prototype = {
     callback: function() {
         var that = this;
-        alert(that.state.a + " " + that.state.z);
+        alert(that.state.a + " " + that.state.z + ' ' +start);
     },
     initSlider: function() {
         var that = this;
@@ -43,7 +37,6 @@ dPlot.prototype = {
 
         that.prepareData();
 
-//        that.slider.innerHTML =  that.state.a + ' ' + that.state.z;
         that.slider.style.left = $px(that.state.a);
         that.slider.style.width = $px(that.state.z - that.state.a);
 
@@ -52,71 +45,44 @@ dPlot.prototype = {
 
     bindHandlers: function(){
         var that = this;
-
-        var dragObject = that.slider;
-        var handler_left = that.handler_left;
-        var handler_right = that.handler_right;
-
-        var start = false;
-        var move = false;
-        var move_z = false;
-        var move_a = false;
-
-        var startX = 0;
-        var stopX = 0;
-        var left =  that.state.a;
-        var right =  that.state.z;
-
-        dragObject.ondragstart = function() {
+        that.slider.ondragstart = function() {
             return false;
         };
 
-        handler_left.ondragstart = function() {
-            return false;
-        };
-
-        handler_right.ondragstart = function() {
-            return false;
-        };
-
-        handler_right.ondragstart = function() {
-            return false;
-        };
-
-
-
-
-        dragObject.onmousedown = function(e){
-
+        that.slider.onmousedown = function(e){
+            start = false;
+            move = false;
+            move_z = false;
+            move_a = false;
+            startX = 0;
+            stopX = 0;
+            left =  that.state.a;
+            right =  that.state.z;
 
             e = fixEvent(e);
-
-            if (e.target == handler_left) {
+            if (e.target == that.handler_left) {
                 start = true;
                 move_a = true;
-
             }
-
-            if (e.target == handler_right) {
+            if (e.target == that.handler_right) {
                 start = true;
                 move_z = true;
-
             }
-            if (e.target == dragObject) {
+            if (e.target == that.slider) {
                 start = true;
                 move = true;
-
             }
 
             startX = e.pageX;
-
-        };
-        document.onmousemove = function(e){
-            e = fixEvent(e);
             if (!start) return;
+            that.move();
+        };
+    },
+    move: function(){
+        var that = this;
 
-
-
+        document.onmousemove = function(e){
+            var e = fixEvent(e);
             newX = e.pageX;
             delta = startX - newX;
 
@@ -140,9 +106,7 @@ dPlot.prototype = {
                 a: newLeft,
                 z: newRight
             };
-
             that.setPos();
-
         };
 
         document.onmouseup = function(e){
@@ -158,9 +122,9 @@ dPlot.prototype = {
             move_z = false;
             move_a = false;
             that.callback();
-//            dragObject.innerHTML =  that.state.a + ' ' + that.state.z;
         };
-        document.onclick = function(e){
+
+        that.slider.onclick = function(e){
             e = fixEvent(e);
             if (!start) return;
             start = false;
@@ -173,43 +137,14 @@ dPlot.prototype = {
             move_z = false;
             move_a = false;
             that.callback();
-//            e.stopPropagation()
         };
-        //todo prevent selection
-
     },
     setPos: function(){
         var that = this;
         that.prepareData();
-            that.slider.style.left = that.state.a + 'px';
-            that.slider.style.width = that.state.z - that.state.a + 'px';
-//            that.slider.style.width = that.state.z - that.state.a + 'px';
+        that.slider.style.left = that.state.a + 'px';
+        that.slider.style.width = that.state.z - that.state.a + 'px';
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     prepareData: function() {
         var that = this;
         _a = Math.min(that.a,that.z);
@@ -217,36 +152,9 @@ dPlot.prototype = {
         that.a = _a;
         that.z = _z;
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     _log:function (text) {
         var logs = document.createElement("div");
         logs.innerHTML = text;
         document.getElementById("log").appendChild(logs);
     }
-}
+};

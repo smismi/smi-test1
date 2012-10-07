@@ -15,16 +15,14 @@ addClass = function (el, clss) {
 removeClass = function (el, clss) {
     classes = getClasses(el);
     var ine = classes.indexOf(clss);
-    if (ine == -1) {
-
-    } else {
-        var classq = '';
+    if (ine != -1) {
+        var new_class = '';
         for (i=0; i< classes.length; i++) {
             if (i != ine) {
-                classq += ((i==0) ? '' : ' ') + classes[i];   //todo нормальные имена
+                new_class += ((i==0) ? '' : ' ') + classes[i];   //todo нормальные имена
             }
         }
-        el.className = classq;
+        el.className = new_class;
     }
 };
 getClasses = function (el) {
@@ -34,9 +32,7 @@ getClasses = function (el) {
 
 fixEvent = function(e) {
     e = e || window.event;
-
     if (!e.target) e.target = e.srcElement;
-
     if (e.pageX == null && e.clientX != null ) { // если нет pageX..
         var html = document.documentElement;
         var body = document.body;
@@ -53,7 +49,7 @@ fixEvent = function(e) {
     }
 
     return e;
-}
+};
 
 
 if (!Array.prototype.indexOf)
