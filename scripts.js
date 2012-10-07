@@ -7,27 +7,25 @@ dPlot = function(id, options, func) {
         a: 0,
         z: 0
     };
-
-    for (i in options) that.state[i] = options[i];
+        // default options exend by user
+    that.state = {
+        a: options.a,
+        z: options.z
+    };
 
     that.initSlider();
 };
 
 
 dPlot.prototype = {
-    callback: function() {
-        var that = this;
-        alert(that.state.a + " " + that.state.z + ' ' +start);
-    },
     initSlider: function() {
         var that = this;
-        // Set starting position
-
+        // stylize
         that.slider = document.createElement("div");
         that.obj.innerHTML = "";
         that.obj.appendChild(that.slider);
         addClass(that.slider, "stp");
-
+        // handlers
         that.handler_right = document.createElement("div");
         that.handler_left = document.createElement("div");
         that.slider.appendChild(that.handler_right);
@@ -35,11 +33,20 @@ dPlot.prototype = {
         addClass(that.handler_right, "handler handler_right");
         addClass(that.handler_left, "handler handler_left");
 
-        that.prepareData();
 
-        that.slider.style.left = $px(that.state.a);
-        that.slider.style.width = $px(that.state.z - that.state.a);
+        that.bindHandlers();
+    },
+    reInitSlider: function(options, func) {
+        var that = this;
 
+
+        that.func = func;
+
+        that.state = {
+            a: options.a,
+            z: options.z
+        };
+//        alert(that.state.a + " " + that.state.z);
         that.bindHandlers();
     },
 
@@ -49,6 +56,7 @@ dPlot.prototype = {
             return false;
         };
 
+        // start
         that.slider.onmousedown = function(e){
             start = false;
             move = false;
@@ -77,11 +85,13 @@ dPlot.prototype = {
             if (!start) return;
             that.move();
         };
+        that.setPos();
     },
     move: function(){
         var that = this;
-
+        if (!start) return;
         document.onmousemove = function(e){
+            if (!start) return;
             var e = fixEvent(e);
             newX = e.pageX;
             delta = startX - newX;
@@ -110,6 +120,7 @@ dPlot.prototype = {
         };
 
         document.onmouseup = function(e){
+            if (!start) return;
             e = fixEvent(e);
             if (!start) return;
             start = false;
@@ -125,6 +136,7 @@ dPlot.prototype = {
         };
 
         that.slider.onclick = function(e){
+            if (!start) return;
             e = fixEvent(e);
             if (!start) return;
             start = false;
@@ -147,10 +159,14 @@ dPlot.prototype = {
     },
     prepareData: function() {
         var that = this;
-        _a = Math.min(that.a,that.z);
-        _z = Math.max(that.a,that.z);
-        that.a = _a;
-        that.z = _z;
+        _a = Math.min(that.state.a,that.state.z);
+        _z = Math.max(that.state.a,that.state.z);
+        that.state.a = _a;
+        that.state.z = _z;
+    },
+    callback: function() {
+        var that = this;
+        alert(that.state.a + " " + that.state.z + ' ' +start);
     },
     _log:function (text) {
         var logs = document.createElement("div");

@@ -42,8 +42,14 @@ body {
 }
 
 .fld_set_date .btn {
-   padding-top: 5px;
-   padding-bottom: 13px;
+    padding-top: 5px;
+    padding-bottom: 13px;
+}
+.fld_set_date .btn span {
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAAAJCAYAAAD0BJjxAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAANBJREFUeNpirKqqYkACZkBsAMQvgPgIEL+DSbS2tjKMgsEPqqur0YWwxikLVFIUiBcBsQeShtdAnAXEa0aDc0gCvHHKCM3x64A4EIvmX0BsDsQXRsNxyAG8cQrK8bo4FIAAG6j0AOKO0XAcUkCFQJymsUAV4QMhUDwKhg/QYoJW+qNgZIFHoIg/BcW4gCcQM47iIYVZCMTpMpCCv0CcCMRbgFgRSRIkXgPEO0a7c0OuO0cwTmHduWtArAfEUUBsDC3+NwHx2dGgHLIAb5wCBBgARI4zxKr3oy8AAAAASUVORK5CYII=);
+    background-position: 0px 15px;
+    padding-bottom: 10px;
 }
 
 .fld_set_fullscreen {

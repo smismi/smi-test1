@@ -33,7 +33,7 @@ getClasses = function (el) {
 fixEvent = function(e) {
     e = e || window.event;
     if (!e.target) e.target = e.srcElement;
-    if (e.pageX == null && e.clientX != null ) { // если нет pageX..
+    if (e.pageX == null && e.clientX != null ) {
         var html = document.documentElement;
         var body = document.body;
 
@@ -47,7 +47,6 @@ fixEvent = function(e) {
     if (!e.which && e.button) {
         e.which = e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) )
     }
-
     return e;
 };
 

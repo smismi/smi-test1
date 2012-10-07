@@ -17,6 +17,10 @@
             }
             addClass(obj, "btn_selected");
             alert(obj.value);
+            plot_one.reInitSlider({
+                a: Math.floor(786 * Math.random())
+                , z: Math.floor(786 * Math.random())
+            });
         }
         function changeFull() {
             var btnFull = $('btn_full');
@@ -45,7 +49,7 @@
                         ticks[i].style.left = w * i - 15 + 'px';
                     }
                 })();
-                var plot_one = new dPlot(
+                plot_one = new dPlot(
                         "plot_1_range",
                         {
                               a: 34
@@ -53,7 +57,7 @@
                         }
 //                        ,
 //                        function(){
-//                            alert(this.id);
+//                            alert(1);
 //                        }
                 );
 //                var plot_two = new dPlot(
@@ -63,7 +67,7 @@
 //                            , z: 350
 //                        },
 //                        function(){
-//                            alert(1);
+//                            alert(2);
 //                        }
 //                );
         }
@@ -71,10 +75,7 @@
 </head>
 <body>
 <div style="width: 829px; height: 371px; background: #fff; margin: 87px auto">
-
-
     <div id="buttons" class="b buttons">
-
         <fieldset id="switch" class="fld_set fld_set_switch">
             <button class="btn" onclick="changeDate(this)" value="День">День</button>
             <button class="btn" onclick="changeDate(this)" value="Неделя">Неделя</button>
@@ -83,7 +84,7 @@
             <button class="btn" onclick="changeDate(this)" value="Год">Год</button>
         </fieldset>
         <fieldset id="date" class="fld_set fld_set_date">
-            <button class="btn" onclick="changeDate(this)" value="А вот другая кнопка">12.02.12    24.12.12</button>
+            <button class="btn" onclick="changeDate(this)" value="А вот другая кнопка"><span>12.02.12 &nbsp;&nbsp; 24.12.12</span></button>
         </fieldset>
         <fieldset id="full" class="fld_set fld_set_fullscreen">
             <button class="btn btn_iconed" id="btn_full" onclick="changeFull()" value="День"><img src="img/0.gif" class="ico ico_fullscreen" alt=""></button>
