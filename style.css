@@ -67,12 +67,35 @@ body {
     height: 178px;
 }
 
+.plot_graph {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+}
 .plot_range {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    overflow:hidden;
+}
+.ranged {
+    height: 100%;
+    float: left;
+    width:111px;
+    position: relative;
+    margin-left: -1px;
+    border-right: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+    cursor: pointer;
+}
+.ranged:hover {
+    border-right: 1px solid #6c94c0;
+    border-left: 1px solid #6c94c0;
+    background: rgba(108,148,199,0.4)
 }
 .stp {
     width: 100px;
@@ -180,7 +203,7 @@ fieldset .btn:first-child {
 
 fieldset .btn:last-child {
     padding-right: 9px;
-     border-right-width: 1px;
+    border-right-width: 1px;
     -webkit-border-top-right-radius: 5px;
     -webkit-border-bottom-right-radius: 5px;
     -moz-border-radius-topright: 5px;

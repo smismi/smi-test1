@@ -44,13 +44,26 @@
                     var plot_ticks = $("plot_ticks");
                     var ticks = plot_ticks.getElementsByTagName("div");
                     var c = ticks.length-1;
-                    var w = Math.floor(786 / c);
-                    for (i = 1; i < ticks.length-1; i++) {
+                    var w = Math.ceil(786 / c);
+                    for (var i = 1; i < ticks.length-1; i++) {
                         ticks[i].style.left = w * i - 15 + 'px';
+                    }
+
+                    var plot_ranges = $("plot_ranges");
+                    var ranges = plot_ranges.getElementsByTagName("div");
+                    var r = ranges.length;
+                    var q = Math.floor(786 / r);
+                    for (var i = 0; i < ranges.length; i++) {
+                        ranges[i].style.width = q - 1 + 'px';
+                        (function(t){
+                            ranges[i].onclick = function() {
+                                alert(t);
+                            };
+                        })(i);
                     }
                 })();
                 plot_one = new dPlot(
-                        "plot_1_range",
+                        "plot",
                         {
                               a: 34
                             , z: 450
@@ -74,7 +87,7 @@
     </script>
 </head>
 <body>
-<div style="width: 829px; height: 371px; background: #fff; margin: 87px auto">
+<div style="width: 829px; height: 371px; background: #fff; margin: 87px auto" class="unselectable">
     <div id="buttons" class="b buttons">
         <fieldset id="switch" class="fld_set fld_set_switch">
             <button class="btn" onclick="changeDate(this)" value="День">День</button>
@@ -93,18 +106,18 @@
     <div class="b plot plot_0">
         <img src="img/plot_0.png" alt="">
     </div>
-    <div class="b plot unselectable">
+    <div class="b plot">
         <img src="img/plot_1.png" alt="">
-        <div id="plot_1_range" class="plot_range"></div>
-        <div id="plot_ticksd" class="plot_ticks">
-            <div class="tick">09 Apr</div>
-            <div class="tick">10 Apr</div>
-            <div class="tick">11 Apr</div>
-            <div class="tick">12 Apr</div>
-            <div class="tick">13 Apr</div>
-            <div class="tick">14 Apr</div>
-            <div class="tick">15 Apr</div>
-            <div class="tick">16 Apr</div>
+        <div id="plot_ranges" class="plot_range">
+            <div class="ranged"></div>
+            <div class="ranged"></div>
+            <div class="ranged"></div>
+            <div class="ranged"></div>
+            <div class="ranged"></div>
+            <div class="ranged"></div>
+            <div class="ranged"></div>
+        </div>
+        <div id="plot" class="plot_graph">
         </div>
     </div>
     <!--<div class="b plot">-->
