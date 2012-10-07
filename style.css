@@ -237,3 +237,12 @@ fieldset .btn:last-child {
 .ico_fullscreen_on {
     background-position: -1px -11px;
 }
+
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
